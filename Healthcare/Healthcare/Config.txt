@@ -1,0 +1,31 @@
+# Ballerina Configuration Guide
+
+## Setting Up Environment Variables (Windows)
+
+1. Right-click on 'This PC' or 'My Computer' and select 'Properties'
+2. Click on 'Advanced system settings'
+3. Click the 'Environment Variables' button
+4. Under 'System variables', find the 'Path' variable and click 'Edit'
+5. Click 'New' and add the Ballerina bin directory path (typically C:\Program Files\Ballerina\<version>\bin)
+6. Click 'OK' on all dialogs to save changes
+
+## Alternative: Run with Full Path
+
+If you don't want to modify your PATH, you can run Ballerina using the full path:
+
+```
+"C:\Program Files\Ballerina\<version>\bin\bal" run
+```
+
+## Configuring Database Connection
+
+To run your application, create a Config.toml file with:
+
+```toml
+DB_HOST = "localhost"
+DB_PORT = 3306
+DB_NAME = "healthcare"
+DB_USER = "root"
+DB_PASSWORD = "password"
+FLASK_SERVICE_URL = "http://localhost:5000"
+```

@@ -1,0 +1,7 @@
+# Database configuration
+DB_HOST = "localhost"
+DB_PORT = 3306
+DB_NAME = "healthcare"
+DB_USER = "root" 
+DB_PASSWORD = "password"
+FLASK_SERVICE_URL = "http://localhost:5000"
