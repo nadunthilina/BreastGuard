@@ -1,7 +1,7 @@
-# CardioInsight
+# BreastGuard
+Breast Cancer Detection System
 
-
-This repository contains the backend code for the Heart Disease Diagnosis web application. It implements a machine learning model using Flask and integrates with a Ballerina backend for diagnosis.
+This repository contains the comprehensive BreastGuard application - a breast cancer detection system that implements machine learning models using Flask and integrates with a Ballerina backend for diagnosis.
 
 ## Table of Contents
 
@@ -9,22 +9,25 @@ This repository contains the backend code for the Heart Disease Diagnosis web ap
 - [Technologies](#technologies)
 - [Installation](#installation)
 - [Usage](#usage)
-- [API Documentation](#api-documentation)
-
+- [Project Structure](#project-structure)
 
 ## Features
 
-- RESTful API for heart disease diagnosis.
-- Integrates with a machine learning model to provide predictions.
-- Handles various symptoms and returns a diagnosis with confidence level.
+- RESTful API for breast cancer diagnosis
+- Integrates with machine learning models to provide predictions
+- User authentication and profile management
+- Image upload and analysis capabilities
+- Medical record management
+- Healthcare data processing with Ballerina
 
 ## Technologies
 
-- **Framework**: Flask (Python), React
-- **Machine Learning**: Trained using scikit-learn
+- **Frontend**: React, Vite
+- **Backend**: Ballerina, Node.js
+- **Machine Learning**: Flask (Python), scikit-learn
 - **Data Handling**: Pandas, NumPy
 - **Database**: MySQL
-- **Integration**: Ballerina
+- **Authentication**: JWT
 
 ## Installation
 
@@ -35,57 +38,61 @@ Make sure you have the following installed:
 - [Python](https://www.python.org/)
 - [Flask](https://flask.palletsprojects.com/en/2.0.x/)
 - [Ballerina](https://ballerina.io/)
-- [Nodejs](https://nodejs.org/en/download/prebuilt-installer/current)
+- [Node.js](https://nodejs.org/en/download/prebuilt-installer/current)
 
 ### Step-by-Step Installation
 
 1. **Clone the repository:**
    ```bash
-   git clone <https://github.com/nadunthilina/BreastGuard>
-   cd iwb130-ballerina_quartet
+   git clone https://github.com/nadunthilina/BreastGuard
+   cd BreastGuard
 
 2. **Frontend dependencies:**
-    
-    ```bash
-    cd Frontend
-    cd Model
-    npm install
-3. **Backend (Model) dependencies:**
-   Navigate to the MLmodel directory where the machine learning API resides and install Flask and the required libraries:
    ```bash
-   pip install Flask
+   cd BreastCancerDetection/frontend
+   npm install
 
-4. **Usage**
+3. **Backend (Node.js) dependencies:**
    ```bash
-   Navigate to the Healthcare directory
+   cd BreastCancerDetection/server
+   npm install
 
-   cd Healthcare
-   cd Healthcare
+4. **Python ML Model dependencies:**
+   ```bash
+   cd BreastCancerDetection/model_service
+   pip install -r requirements.txt
+
+## Usage
+
+1. **Start the Ballerina service:**
+   ```bash
+   cd BreastCancerDetection/service/breast_guard
    bal build
    bal run
-   
-   Navigate to the Frontend directory and run following commands to run the React app
-   cd Frontend
-   cd Model
+
+2. **Start the Node.js backend:**
+   ```bash
+   cd BreastCancerDetection/server
+   npm start
+
+3. **Start the React frontend:**
+   ```bash
+   cd BreastCancerDetection/frontend
    npm run dev
 
-   After that navigate to the MLmodel directory to run the Flask server
-   cd MLmodel
+4. **Start the ML model service:**
+   ```bash
+   cd BreastCancerDetection/model_service
    python app.py
 
-   Then the Flask server should start running on http:localhost/5000
+The application should now be running with all services connected.
 
-   
+## Project Structure
 
-   If you find any unresolved modules pull them manually.
-
-Using the above commands you'll be able to setup the project and execute the application
-
-
-      
-
-   
-
-
-   
-
+- `BreastCancerDetection/` - Main application directory
+  - `frontend/` - React frontend application
+  - `server/` - Node.js backend API
+  - `model_service/` - Python Flask ML service
+  - `service/` - Ballerina healthcare service
+- `Healthcare/` - Additional healthcare components
+- `MLmodel/` - Machine learning models and notebooks
