@@ -26,7 +26,7 @@ This repository contains the comprehensive BreastGuard application - a breast ca
 - **Backend**: Ballerina, Node.js
 - **Machine Learning**: Flask (Python), scikit-learn
 - **Data Handling**: Pandas, NumPy
-- **Database**: MySQL
+- **Database**: mongodb
 - **Authentication**: JWT
 
 ## Installation
