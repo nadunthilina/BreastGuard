@@ -1,3 +1,34 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+target/
+**/target/
+dist/
+build/
+
+# JAR files
+*.jar
+
+# Large binaries
+*.exe
+
+# Large image files
+*.jpg
+*.jpeg
+*.png
+*.gif
+
+# Map files
+*.map
+
+# Environment files
+.env
+
+# Logs
+*.log
+
 BreastCancerDetection/server/node_modules/.package-lock.json
 BreastCancerDetection/server/node_modules/.bin/mime
 BreastCancerDetection/server/node_modules/.bin/mime.cmd
