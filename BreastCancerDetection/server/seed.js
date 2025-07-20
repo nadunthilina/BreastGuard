@@ -38,6 +38,117 @@ const users = [
   }
 ];
 
+// Sample detection history data
+const getDetectionHistoryData = (userId) => {
+  return [
+    {
+      userId,
+      prediction: 'benign',
+      confidence: 0.89,
+      features: {
+        radius: 10.42,
+        texture: 15.35,
+        perimeter: 67.38,
+        area: 337.47,
+        smoothness: 0.08,
+        compactness: 0.07,
+        concavity: 0.05,
+        concave_points: 0.03,
+        symmetry: 0.18,
+        fractal_dimension: 0.06
+      },
+      details: {
+        age: 45,
+        familyHistory: false,
+        previousTreatments: "None",
+        biopsyLocation: "Left breast, upper outer quadrant",
+        tumorSize: "1.2 cm",
+        nodalStatus: "Negative",
+        estrogenReceptor: "Positive",
+        progesteroneReceptor: "Positive",
+        her2Status: "Negative",
+        grade: "Grade 1",
+        stageClassification: "Stage IA",
+        recommendedFollowUp: "Routine mammogram in 6 months"
+      },
+      imageHash: 'sample_hash_1',
+      imageUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
+      timestamp: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
+      notes: "Patient presented with a palpable mass in the left breast. Ultrasound revealed a well-circumscribed mass with benign features. Biopsy confirmed benign fibroadenoma."
+    },
+    {
+      userId,
+      prediction: 'malignant',
+      confidence: 0.92,
+      features: {
+        radius: 18.67,
+        texture: 24.71,
+        perimeter: 121.33,
+        area: 1068.90,
+        smoothness: 0.11,
+        compactness: 0.28,
+        concavity: 0.33,
+        concave_points: 0.18,
+        symmetry: 0.22,
+        fractal_dimension: 0.08
+      },
+      details: {
+        age: 57,
+        familyHistory: true,
+        previousTreatments: "Lumpectomy (2023)",
+        biopsyLocation: "Right breast, upper inner quadrant",
+        tumorSize: "2.8 cm",
+        nodalStatus: "Positive (2/12)",
+        estrogenReceptor: "Positive",
+        progesteroneReceptor: "Negative",
+        her2Status: "Positive",
+        grade: "Grade 3",
+        stageClassification: "Stage IIB",
+        recommendedFollowUp: "Immediate referral to oncology, chemotherapy and radiation recommended"
+      },
+      imageHash: 'sample_hash_2',
+      imageUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
+      timestamp: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), // 15 days ago
+      notes: "Patient with family history of breast cancer presented for routine screening. Mammogram revealed suspicious mass with irregular borders and microcalcifications. Ultrasound and biopsy confirmed invasive ductal carcinoma."
+    },
+    {
+      userId,
+      prediction: 'benign',
+      confidence: 0.95,
+      features: {
+        radius: 11.38,
+        texture: 14.31,
+        perimeter: 72.33,
+        area: 401.35,
+        smoothness: 0.09,
+        compactness: 0.06,
+        concavity: 0.04,
+        concave_points: 0.02,
+        symmetry: 0.17,
+        fractal_dimension: 0.06
+      },
+      details: {
+        age: 38,
+        familyHistory: false,
+        previousTreatments: "None",
+        biopsyLocation: "Right breast, lower outer quadrant",
+        tumorSize: "0.8 cm",
+        nodalStatus: "Not applicable",
+        estrogenReceptor: "Not applicable",
+        progesteroneReceptor: "Not applicable",
+        her2Status: "Not applicable",
+        grade: "Not applicable",
+        stageClassification: "Not applicable",
+        recommendedFollowUp: "Annual mammogram"
+      },
+      imageHash: 'sample_hash_3',
+      imageUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
+      timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days ago
+      notes: "Patient presented with breast pain and palpable lump. Ultrasound indicated benign characteristics. Biopsy confirmed benign cyst."
+    }
+  ];
+};
+
 // Function to seed the database
 const seedDatabase = async () => {
   try {
@@ -58,63 +169,22 @@ const seedDatabase = async () => {
       console.log(`Created user: ${user.username}`);
     }
 
-    // Create some sample detection results
-    const sampleFeatures = [
-      {
-        radius: 15.2,
-        texture: 19.5,
-        perimeter: 98.7,
-        area: 750.3,
-        smoothness: 0.08,
-        compactness: 0.12,
-        concavity: 0.15,
-        concave_points: 0.08,
-        symmetry: 0.18,
-        fractal_dimension: 0.06
-      },
-      {
-        radius: 18.7,
-        texture: 23.2,
-        perimeter: 122.5,
-        area: 1050.2,
-        smoothness: 0.11,
-        compactness: 0.23,
-        concavity: 0.28,
-        concave_points: 0.14,
-        symmetry: 0.22,
-        fractal_dimension: 0.07
+    // Create sample detection records for each user
+    for (const user of createdUsers) {
+      const historyData = getDetectionHistoryData(user._id);
+      for (const record of historyData) {
+        await DetectionResult.create(record);
+        console.log(`Created detection record for: ${user.username}`);
       }
-    ];
+    }
 
-    // Add some detection results for the first user
-    await DetectionResult.create({
-      userId: createdUsers[0]._id,
-      prediction: 'benign',
-      confidence: 0.89,
-      features: sampleFeatures[0],
-      imageHash: '7e9f8c9a4b3c2d1e0f',
-      timestamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // 7 days ago
-    });
-
-    await DetectionResult.create({
-      userId: createdUsers[0]._id,
-      prediction: 'malignant',
-      confidence: 0.76,
-      features: sampleFeatures[1],
-      imageHash: '2a3b4c5d6e7f8g9h0i',
-      timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) // 2 days ago
-    });
-
-    console.log('Sample detection results created');
-    console.log('Database seeding completed successfully');
-
-    // Disconnect from database
-    mongoose.disconnect();
+    console.log('Database seeded successfully!');
+    process.exit(0);
   } catch (error) {
     console.error('Error seeding database:', error);
     process.exit(1);
   }
 };
 
-// Run the seeding function
+// Run seeding function
 seedDatabase();

@@ -44,8 +44,8 @@ function About() {
               alignItems: 'center', 
               justifyContent: 'center',
               fontSize: '2rem'
-            }}>👩‍⚕️</div>
-            <h3>MAR.Kaveesha</h3>
+            }}>👨‍💻</div>
+            <h3>WMN.Thilina</h3>
             <p>Team Leader</p>
           </div>
           <div style={{ flex: '1', minWidth: '200px' }}>
@@ -59,10 +59,39 @@ function About() {
               justifyContent: 'center',
               fontSize: '2rem'
             }}>👨‍💻</div>
-            <h3>WMN.Thilina</h3>
+            <h3>MAR.Kaveesha</h3>
+            <p>Team Member</p>
+          </div>
+          <div style={{ flex: '1', minWidth: '200px' }}>
+            <div style={{ 
+              width: '100px', 
+              height: '100px', 
+              borderRadius: '50%', 
+              backgroundColor: 'var(--light-pink)', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              fontSize: '2rem'
+            }}>👨‍💻</div>
+            <h3>DMP.Indunil</h3>
+            <p>Team Member</p>
+          </div>
+          <div style={{ flex: '1', minWidth: '200px' }}>
+            <div style={{ 
+              width: '100px', 
+              height: '100px', 
+              borderRadius: '50%', 
+              backgroundColor: 'var(--light-pink)', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              fontSize: '2rem'
+            }}>👨‍💻</div>
+            <h3>PK.Wellappili</h3>
             <p>Team Member</p>
           </div>
         </div>
+        
         
         <h2 style={{ color: 'var(--primary-color)', marginTop: '2rem' }}>Disclaimer</h2>
         <p>

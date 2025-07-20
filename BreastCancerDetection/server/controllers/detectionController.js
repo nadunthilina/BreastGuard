@@ -89,8 +89,69 @@ const getDetectionById = async (req, res) => {
   }
 };
 
+// @desc    Delete a detection record
+// @route   DELETE /api/detection/:id
+// @access  Private
+const deleteDetection = async (req, res) => {
+  try {
+    const detectionId = req.params.id;
+    const userId = req.user._id;
+
+    // Find the detection record
+    const detection = await DetectionResult.findOne({ 
+      _id: detectionId,
+      userId
+    });
+
+    if (!detection) {
+      return res.status(404).json({ message: 'Detection record not found' });
+    }
+
+    // Delete the record
+    await DetectionResult.findByIdAndDelete(detectionId);
+    
+    res.json({ message: 'Detection record deleted successfully' });
+  } catch (error) {
+    console.error('Delete Detection Error:', error);
+    res.status(500).json({ message: 'Server error', details: error.message });
+  }
+};
+
+// @desc    Update notes for a detection record
+// @route   PUT /api/detection/:id/notes
+// @access  Private
+const updateDetectionNotes = async (req, res) => {
+  try {
+    const detectionId = req.params.id;
+    const userId = req.user._id;
+    const { notes } = req.body;
+
+    if (notes === undefined) {
+      return res.status(400).json({ message: 'Notes field is required' });
+    }
+
+    // Find and update the detection record
+    const detection = await DetectionResult.findOneAndUpdate(
+      { _id: detectionId, userId },
+      { notes },
+      { new: true } // Return the updated document
+    );
+
+    if (!detection) {
+      return res.status(404).json({ message: 'Detection record not found' });
+    }
+
+    res.json(detection);
+  } catch (error) {
+    console.error('Update Notes Error:', error);
+    res.status(500).json({ message: 'Server error', details: error.message });
+  }
+};
+
 module.exports = {
   detectBreastCancer,
   getDetectionHistory,
-  getDetectionById
+  getDetectionById,
+  deleteDetection,
+  updateDetectionNotes
 };

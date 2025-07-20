@@ -30,7 +30,7 @@ function Footer() {
       </div>
       
       <div className="footer-bottom container">
-        <p>&copy; {new Date().getFullYear()} Breast Guard by Team Cipher. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Breast Guard by Team Yunera. All rights reserved.</p>
         <p>
           <a href="/privacy-policy">Privacy Policy</a> | 
           <a href="/terms-of-service">Terms of Service</a>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { saveDetectionToHistory } from '../services/historyService';
 
 function UploadImage() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -6,6 +7,7 @@ function UploadImage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
+  const [savedToHistory, setSavedToHistory] = useState(false);
   
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -78,6 +80,28 @@ function UploadImage() {
       };
       
       setResult(mockResult);
+      
+      // Save the detection result to user history
+      try {
+        const token = localStorage.getItem('token');
+        if (token) {
+          // For backend compatibility, we're sending the data directly in the format it expects
+          const historyRecord = {
+            prediction: mockResult.prediction,
+            confidenceLevel: Math.round(mockResult.confidence * 100),
+            confidence: mockResult.confidence, // For backend compatibility
+            features: mockResult.features,
+            imageBase64: preview // Save the image preview as base64
+          };
+          
+          await saveDetectionToHistory(historyRecord);
+          setSavedToHistory(true);
+        }
+      } catch (historyError) {
+        console.error('Failed to save to history:', historyError);
+        // We don't want to show this error to the user as the main functionality worked
+        // Just log it to console
+      }
       
     } catch (err) {
       setError(err.message || 'Error processing image. Please try again.');
@@ -208,6 +232,24 @@ function UploadImage() {
                     </div>
                   ))}
                 </div>
+                
+                {savedToHistory && (
+                  <div style={{ 
+                    marginTop: '1.5rem', 
+                    backgroundColor: '#e8f5e9', 
+                    padding: '0.75rem', 
+                    borderRadius: '4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px'
+                  }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <span>Result saved to your medical history</span>
+                  </div>
+                )}
                 
                 <div style={{ marginTop: '2rem' }}>
                   <p><strong>Note:</strong> This analysis is a preliminary result and should be used as a supportive tool for medical professionals. Always consult with a healthcare provider for diagnosis.</p>

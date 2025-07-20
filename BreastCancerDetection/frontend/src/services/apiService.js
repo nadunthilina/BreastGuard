@@ -107,6 +107,16 @@ export const detectionService = {
     } catch (error) {
       throw error.response?.data || { message: 'Failed to get detection details' };
     }
+  },
+
+  // Fetch image history for a user
+  getImageHistory: async () => {
+    try {
+      const response = await api.get('/images/history');
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || { message: 'Failed to fetch image history' };
+    }
   }
 };
 

@@ -8,6 +8,7 @@ const config = require('./config/config');
 // Import routes
 const userRoutes = require('./routes/userRoutes');
 const detectionRoutes = require('./routes/detectionRoutes');
+const historyRoutes = require('./routes/historyRoutes');
 
 const app = express();
 
@@ -32,6 +33,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/detection', detectionRoutes);
+app.use('/api/users', historyRoutes); // Adding history routes under /api/users/history
 
 // Health check endpoint
 app.get('/health', (req, res) => {

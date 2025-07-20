@@ -27,10 +27,36 @@ const detectionResultSchema = new mongoose.Schema({
     symmetry: Number,
     fractal_dimension: Number
   },
+  details: {
+    age: Number,
+    familyHistory: Boolean,
+    previousTreatments: String,
+    biopsyLocation: String,
+    tumorSize: String,
+    nodalStatus: String,
+    estrogenReceptor: String,
+    progesteroneReceptor: String,
+    her2Status: String,
+    grade: String,
+    stageClassification: String,
+    recommendedFollowUp: String
+  },
+  notes: {
+    type: String,
+    default: ""
+  },
   imageHash: {
     type: String
   },
+  imageUrl: {
+    type: String,
+    required: true
+  },
   timestamp: {
+    type: Date,
+    default: Date.now
+  },
+  uploadDate: {
     type: Date,
     default: Date.now
   }

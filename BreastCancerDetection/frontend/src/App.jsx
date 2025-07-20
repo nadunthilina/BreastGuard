@@ -14,6 +14,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import UploadImage from './pages/UploadImage';
 import Profile from './pages/Profile';
+import RecordDetails from './pages/RecordDetails';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -50,6 +51,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Profile />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/record-details/:id" 
+              element={
+                <ProtectedRoute>
+                  <RecordDetails />
                 </ProtectedRoute>
               } 
             />

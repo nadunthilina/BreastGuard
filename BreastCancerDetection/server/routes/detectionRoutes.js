@@ -3,7 +3,9 @@ const router = express.Router();
 const { 
   detectBreastCancer, 
   getDetectionHistory, 
-  getDetectionById 
+  getDetectionById,
+  deleteDetection,
+  updateDetectionNotes
 } = require('../controllers/detectionController');
 const authMiddleware = require('../middleware/authMiddleware');
 
@@ -13,5 +15,7 @@ router.use(authMiddleware);
 router.post('/', detectBreastCancer);
 router.get('/history', getDetectionHistory);
 router.get('/:id', getDetectionById);
+router.delete('/:id', deleteDetection);
+router.put('/:id/notes', updateDetectionNotes);
 
 module.exports = router;
